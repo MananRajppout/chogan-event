@@ -236,7 +236,9 @@ const Broadcast = () => {
         setConnectionError(null);
         setNetworkQuality('good'); // Reset network quality on reconnect
       } else if (curState === 'DISCONNECTED' && isLive && connectionStatus === 'connected') {
-        handleConnectionLoss();
+        //handleConnectionLoss();
+        handleStopStream();
+        window.alert("Connection lost, broadcast stopped, Please restart the broadcast");
       } else if (curState === 'RECONNECTING') {
         setConnectionStatus('reconnecting');
         toast.info('Connection unstable, attempting to stabilize...', {
@@ -256,7 +258,7 @@ const Broadcast = () => {
 
       if (evt.code === 'NETWORK_ERROR' && isLive && connectionStatus === 'connected') {
         setNetworkQuality('poor');
-        handleConnectionLoss();
+        //handleConnectionLoss();
       } else if (evt.code === 'MEDIA_ERROR') {
         toast.error('Microphone error detected. Please check your audio device.', {
           id: 'media-error',
@@ -1238,23 +1240,26 @@ const Broadcast = () => {
                   </div>
 
                   {/* Connection Controls */}
-                  {(connectionStatus === 'error' || isReconnecting || connectionError) && (
-                    <div className="space-y-4">
-                      <Button
-                        onClick={handleForceReconnect}
-                        className="w-full bg-blue-600 text-white hover:bg-blue-700 font-inter font-semibold py-4 rounded-xl"
-                        disabled={isReconnecting}
-                      >
-                        <RefreshCcw className={`mr-2 h-5 w-5 ${isReconnecting ? 'animate-spin' : ''}`} />
-                        {isReconnecting ? 'Reconnecting...' : 'Force Reconnect'}
-                      </Button>
-                      {connectionError && (
-                        <div className="text-center bg-red-50 p-4 rounded-xl">
-                          <p className="text-sm text-red-600">{connectionError}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                 {/* 
+{(connectionStatus === 'error' || isReconnecting || connectionError) && (
+  <div className="space-y-4">
+    <Button
+      onClick={handleForceReconnect}
+      className="w-full bg-blue-600 text-white hover:bg-blue-700 font-inter font-semibold py-4 rounded-xl"
+      disabled={isReconnecting}
+    >
+      <RefreshCcw className={`mr-2 h-5 w-5 ${isReconnecting ? 'animate-spin' : ''}`} />
+      {isReconnecting ? 'Reconnecting...' : 'Force Reconnect'}
+    </Button>
+    {connectionError && (
+      <div className="text-center bg-red-50 p-4 rounded-xl">
+        <p className="text-sm text-red-600">{connectionError}</p>
+      </div>
+    )}
+  </div>
+)}
+*/}
+
 
                   {!isMicConnected && (
                     <div className="text-center bg-orange-50 p-8 rounded-3xl border border-orange-200">

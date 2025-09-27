@@ -87,6 +87,12 @@ export const twoWayLanguages = {
     german: true,
     french: true,
     georgian: true,
+    romanian: true,
+    croatian: true,
+    portuguese: true,
+    czech: true,
+    hungarian: true,
+    arabic: true,
 }
 
 
